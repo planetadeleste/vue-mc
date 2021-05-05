@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 declare module "vue-mc" {
-  import { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
+  import { AxiosRequestConfig, AxiosResponse, AxiosError, Method } from "axios";
   import {
     ApiLinksResponse,
     ApiMetaResponse,
   } from "@bit/planetadeleste.shopaholic.types.api";
+  import { Rule } from "vue-mc/validation";
 
   export interface Result<T = Record<string, any>> {
     status: boolean;
@@ -101,7 +102,7 @@ declare module "vue-mc" {
   // STRUCTURES
   type ConstructorOf<A> = new (...args: any[]) => A;
 
-  export declare enum RequestOperation {
+  export enum RequestOperation {
     REQUEST_CONTINUE = 0,
     REQUEST_REDUNDANT = 1,
     REQUEST_SKIP = 2,
@@ -110,7 +111,7 @@ declare module "vue-mc" {
   /**
    * Base class for all things common between Model and Collection.
    */
-  export declare abstract class Base {
+  export abstract class Base {
     static readonly REQUEST_CONTINUE = RequestOperation.REQUEST_CONTINUE;
     static readonly REQUEST_REDUNDANT = RequestOperation.REQUEST_REDUNDANT;
     static readonly REQUEST_SKIP = RequestOperation.REQUEST_SKIP;
@@ -338,10 +339,12 @@ declare module "vue-mc" {
      * @returns {string} A URL that was generated using the given route key.
      */
     getURL(route: string, parameters?: Record<string, any>): string;
+
     /**
      * @returns {Request} A new `Request` using the given configuration.
      */
     createRequest(config: AxiosRequestConfig): Request;
+
     /**
      * Creates a request error based on a given existing error and optional response.
      */
@@ -446,31 +449,26 @@ declare module "vue-mc" {
     routeParameterPattern?: RegExp;
     useDeleteBody?: boolean;
   }
-  export declare type Routes = Record<
-    "fetch" | "save" | "delete" | string,
-    string
-  >;
-  export declare type Listener = (context: Record<string, any>) => void;
-  export declare type RouteResolver = (
+  export type Routes = Record<"fetch" | "save" | "delete" | string, string>;
+  export type Listener = (context: Record<string, any>) => void;
+  export type RouteResolver = (
     route: string,
     parameters: Record<string, string>
   ) => string;
-  export declare type RequestFailureCallback = (
+  export type RequestFailureCallback = (
     error: any,
     response: Response | undefined
   ) => void;
-  export declare type RequestSuccessCallback = (
-    response: Response | null
-  ) => void;
-  export declare type OnRequestCallback = () => Promise<number | boolean>;
-  export declare type HttpMethods =
+  export type RequestSuccessCallback = (response: Response | null) => void;
+  export type OnRequestCallback = () => Promise<number | boolean>;
+  export type HttpMethods =
     | "GET"
     | "POST"
     | "PATCH"
     | "PUT"
     | "DELETE"
     | string;
-  export declare type RequestType =
+  export type RequestType =
     | "fetch"
     | "save"
     | "update"
@@ -486,7 +484,7 @@ declare module "vue-mc" {
     headers?: Record<string, any>;
   }
 
-  export declare class Collection<A extends Model = Model> extends Base {
+  export class Collection<A extends Model = Model> extends Base {
     models: A[];
     readonly loading: boolean;
     readonly saving: boolean;
@@ -1023,14 +1021,14 @@ declare module "vue-mc" {
     toArray(): Record<string, any>[];
   }
 
-  export declare type Predicate<T = boolean> =
+  export type Predicate<T = boolean> =
     | ((model: Model) => T)
     | string
     | Record<string, any>
     | Model
     | Partial<Model>;
 
-  export declare class Model extends Base {
+  export class Model extends Base {
     [key: string]: any;
     readonly loading: boolean;
     readonly saving: boolean;
@@ -1528,20 +1526,15 @@ declare module "vue-mc" {
      */
     mutateBeforeSave?: boolean;
   }
-  export declare type Mutation = (value: any) => any;
-  export declare type ValidationTask =
-    | true
-    | string
-    | Promise<ValidationResult>;
-  export declare type ValidationResult =
+  export type Mutation = (value: any) => any;
+  export type ValidationTask = true | string | Promise<ValidationResult>;
+  export type ValidationResult =
     | true
     | string
     | AttributesValidationErrors
     | (string | AttributesValidationErrors)[];
-  export declare type ValidationResultError =
-    | string
-    | AttributesValidationErrors;
-  export declare type ValidationResultErrorFinalResult =
+  export type ValidationResultError = string | AttributesValidationErrors;
+  export type ValidationResultErrorFinalResult =
     | ValidationResultError
     | ValidationResultError[];
   export interface AttributesValidationErrors {
@@ -1656,7 +1649,7 @@ declare module "vue-mc/validation" {
     uuid: string;
   }
 
-  export declare class GlobalMessages {
+  export class GlobalMessages {
     $locale: string;
     $fallback: string;
     $locales: Record<string, Bundle>;
@@ -1932,7 +1925,7 @@ declare module "vue-mc/validation" {
     and(rule: Rule | Rule[]): Rule;
     or(rule: Rule | Rule[]): Rule;
   }
-  export declare type RuleFunction = (...params: any[]) => Rule;
+  export type RuleFunction = (...params: any[]) => Rule;
 }
 
 declare module "@planetadeleste/vue-mc" {
@@ -1948,6 +1941,7 @@ declare module "@planetadeleste/vue-mc" {
     RequestOptions,
     Response,
     RouteResolver,
+    Request,
   } from "vue-mc";
 
   type Constructor<T> = new (...args: any[]) => T;
@@ -1974,10 +1968,10 @@ declare module "@planetadeleste/vue-mc" {
   }
 
   export class Model extends BaseModel {
-    private _accessors!: Record<string, Accessor>;
-    private _relations!: Record<string, Constructor<Model>>;
-    private _baseClass!: Base;
-    private _silently!: boolean;
+    private _accessors: Record<string, Accessor>;
+    private _relations: Record<string, Constructor<Model>>;
+    private _baseClass: Base;
+    private _silently: boolean;
     private _base(): Base;
 
     boot(): void;
@@ -2035,7 +2029,7 @@ declare module "@planetadeleste/vue-mc" {
      * @param {string} sMessage Alert Message
      * @param {string} sType Alert type (error, info, success)
      */
-    alert(sMessage: string, sType = "error"): string;
+    alert(sMessage: string, sType: string): string;
 
     /**
      * @returns {Request} A new `Request` using the given configuration.
@@ -2084,11 +2078,11 @@ declare module "@planetadeleste/vue-mc" {
      *
      * @returns {Promise}
      */
-    store(options: RequestOptions = {}): Promise<Response<any> | null>;
+    store(options: RequestOptions): Promise<Response<any> | null>;
   }
 
   export class Collection<A extends Model = Model> extends BaseCollection<A> {
-    _baseClass!: Base;
+    _baseClass: Base;
     _links: ApiLinksResponse | Record<string, any> = {};
     _meta: ApiMetaResponse | Record<string, any> = {};
 
@@ -2102,7 +2096,7 @@ declare module "@planetadeleste/vue-mc" {
      * @param {string} sMessage Alert Message
      * @param {string} sType Alert type (error, info, success)
      */
-    alert(sMessage: string, sType = "error"): string;
+    alert(sMessage: string, sType: string): string;
 
     /**
      * @returns {Request} A new `Request` using the given configuration.
@@ -2117,7 +2111,7 @@ declare module "@planetadeleste/vue-mc" {
      * @param {Record<string, any>} [obData]
      * @returns {Promise<Response>}
      */
-    async createCustomRequest(
+    createCustomRequest(
       sMethod: string,
       sRoute?: string | Record<string, any>,
       obData?: Record<string, any>

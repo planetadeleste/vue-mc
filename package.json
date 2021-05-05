@@ -14,6 +14,7 @@
   "main": "dist/index.js",
   "types": "src/vue-mc.d.ts",
   "scripts": {
+    "lint": "eslint . --ext .ts",
     "build": "tsc"
   },
   "dependencies": {
