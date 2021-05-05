@@ -1,13 +1,13 @@
 {
-  "name": "@planetadeleste/vue-mc-shopaholic",
+  "name": "@planetadeleste/vue-mc",
   "version": "1.0.76",
-  "description": "Base of models and collections for ApiShopaholic plugin",
+  "description": "Extension of vue-mc (vuemc.io) package",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/planetadeleste/vue-mc-shopaholic.git"
+    "url": "git+https://github.com/planetadeleste/vue-mc.git"
   },
   "bugs": {
-    "url": "https://github.com/planetadeleste/vue-mc-shopaholic/issues"
+    "url": "https://github.com/planetadeleste/vue-mc/issues"
   },
   "author": "Alvaro Canepa",
   "license": "MIT",
@@ -38,7 +38,7 @@
     "dist",
     "src"
   ],
-  "homepage": "https://www.npmjs.com/package/@planetadeleste/vue-mc-shopaholic",
+  "homepage": "https://www.npmjs.com/package/@planetadeleste/vue-mc",
   "keywords": [
     "vue",
     "mc",
