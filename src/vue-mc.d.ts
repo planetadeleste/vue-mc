@@ -1911,7 +1911,7 @@ declare module "vue-mc/validation" {
   export declare type RuleFunction = (...params: any[]) => Rule;
 }
 
-declare module "@planetadeleste/vue-mc-shopaholic" {
+declare module "@planetadeleste/vue-mc" {
   import { VuexModule } from "vuex-module-decorators";
   import { AxiosStatic, AxiosRequestConfig } from "axios";
   import {
@@ -2153,6 +2153,20 @@ declare module "@planetadeleste/vue-mc-shopaholic" {
      * @returns {Record<string, any>} A native representation of this collection models that will determine the contents of JSON.stringify(model).
      */
     getModelList<T extends Collection>(this: T): Record<string, any>;
+  }
+
+  export interface FileData {
+    disk_name: string;
+    thumb: string;
+    path: string;
+    file_name: string;
+    ext: string;
+    title: string;
+    description: string;
+  }
+
+  export interface File extends Model, FileData {
+    resize(width: number, height: number): Promise<Response>;
   }
 
   export type Accessor = (value?: any) => any;

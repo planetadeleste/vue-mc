@@ -14,7 +14,7 @@ import { Model } from "../";
  * @property {string} title
  * @property {string} description
  */
-class File extends Model {
+export default class File extends Model {
     defaults() {
         return {
             disk_name: null,
@@ -50,5 +50,4 @@ class File extends Model {
         return await this.createCustomRequest("resize", { width, height, disk_name: this.disk_name }, ["disk_name"]);
     }
 }
-export default File;
 //# sourceMappingURL=File.js.map

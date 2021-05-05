@@ -1,6 +1,5 @@
 import { Model } from "../";
 import { Response } from "vue-mc";
-import { FileData } from "@/types/File";
 
 /**
  * @description File model
@@ -17,7 +16,7 @@ import { FileData } from "@/types/File";
  * @property {string} title
  * @property {string} description
  */
-class File extends Model {
+export default class File extends Model {
   defaults(): Record<string, any> {
     return {
       disk_name: null,
@@ -60,7 +59,3 @@ class File extends Model {
     );
   }
 }
-
-interface File extends Model, FileData {}
-
-export default File;
