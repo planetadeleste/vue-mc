@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 declare module "vue-mc" {
   import { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
+  import {
+    ApiLinksResponse,
+    ApiMetaResponse,
+  } from "@bit/planetadeleste.shopaholic.types.api";
 
   export interface Result<T = Record<string, any>> {
     status: boolean;
@@ -1528,7 +1532,7 @@ declare module "vue-mc" {
   /**
    * Binds all methods of a class instance to itself.
    */
-  export declare const autobind: (instance: any) => void;
+  export const autobind: (instance: any) => void;
 }
 
 declare module "vue-mc/validation" {
@@ -1537,51 +1541,51 @@ declare module "vue-mc/validation" {
   /**
    * Afrikaans
    */
-  export declare const af_za: Bundle;
+  export const af_za: Bundle;
   /**
    * Arabic - Republic of Iraq
    */
-  export declare const ar_iq: Bundle;
+  export const ar_iq: Bundle;
   /**
    * English - United States (Default)
    */
-  export declare const en_us: Bundle;
+  export const en_us: Bundle;
   /**
    * Persian - Islamic Republic of Iran
    */
-  export declare const fa_ir: Bundle;
+  export const fa_ir: Bundle;
   /**
    * French
    */
-  export declare const fr_fr: Bundle;
+  export const fr_fr: Bundle;
   /**
    * Portuguese - Brazil
    */
-  export declare const pt_br: Bundle;
+  export const pt_br: Bundle;
   /**
    * Dutch - The Netherlands
    */
-  export declare const nl_nl: Bundle;
+  export const nl_nl: Bundle;
   /**
    * Polish - Poland
    */
-  export declare const pl_pl: Bundle;
+  export const pl_pl: Bundle;
   /**
    * Russian - Russia
    */
-  export declare const ru_ru: Bundle;
+  export const ru_ru: Bundle;
   /**
    * Danish - Denmark
    */
-  export declare const da_dk: Bundle;
+  export const da_dk: Bundle;
   /**
    * Indonesian - Indonesia
    */
-  export declare const id_id: Bundle;
+  export const id_id: Bundle;
   /**
    * German - Germany
    */
-  export declare const de_de: Bundle;
+  export const de_de: Bundle;
   export interface Bundle {
     locale: string;
     messages: Messages;
@@ -1672,7 +1676,7 @@ declare module "vue-mc/validation" {
   /**
    * Global validation message registry.
    */
-  export declare const messages: GlobalMessages;
+  export const messages: GlobalMessages;
   /**
    * Rule helpers for easy validation.
    * These can all be used directly in a model's validation configuration.
@@ -1705,189 +1709,189 @@ declare module "vue-mc/validation" {
    *
    * @returns {Function} Validation rule.
    */
-  export declare const rule: RuleFunction;
+  export const rule: RuleFunction;
   /**
    * AVAILABLE RULES
    */
   /**
    * Checks if the value is after a given date string or `Date` object.
    */
-  export declare const after: (date: Date) => Rule;
+  export const after: (date: Date) => Rule;
   /**
    * Checks if a value only has letters.
    */
-  export declare const alpha: Rule;
+  export const alpha: Rule;
   /**
    * Checks if a value only has letters or numbers.
    */
-  export declare const alphanumeric: Rule;
+  export const alphanumeric: Rule;
   /**
    * Checks if a value is an array.
    */
-  export declare const array: Rule;
+  export const array: Rule;
   /**
    * Checks if a value is a string consisting only of ASCII characters.
    */
-  export declare const ascii: Rule;
+  export const ascii: Rule;
   /**
    * Checks if a value is a valid Base64 string.
    */
-  export declare const base64: Rule;
+  export const base64: Rule;
   /**
    * Checks if a value is before a given date string or `Date` object.
    */
-  export declare const before: (date: Date) => Rule;
+  export const before: (date: Date) => Rule;
   /**
    * Checks if a value is between a given minimum or maximum, inclusive by default.
    */
-  export declare const between: RuleFunction;
+  export const between: RuleFunction;
   /**
    * Checks if a value is a boolean (strictly true or false).
    */
-  export declare const boolean: Rule;
+  export const boolean: Rule;
   /**
    * Checks if a value is a valid credit card number.
    */
-  export declare const creditcard: Rule;
+  export const creditcard: Rule;
   /**
    * Checks if a value is parseable as a date.
    */
-  export declare const date: Rule;
+  export const date: Rule;
   /**
    * Checks if a value matches the given date format.
    *
    * @see https://date-fns.org/v2.0.0-alpha.9/docs/format
    */
-  export declare const dateformat: RuleFunction;
+  export const dateformat: RuleFunction;
   /**
    * Checks if a value is not `undefined`
    */
-  export declare const defined: Rule;
+  export const defined: Rule;
   /**
    * Checks if a value is a valid email address.
    */
-  export declare const email: Rule;
+  export const email: Rule;
   /**
    * Checks if value is considered empty.
    *
    * @see https://lodash.com/docs/#isEmpty
    */
-  export declare const empty: Rule;
+  export const empty: Rule;
   /**
    * Checks if a value equals the given value.
    */
-  export declare const equals: RuleFunction;
+  export const equals: RuleFunction;
   /**
    * Alias for `equals`
    */
-  export declare const equal: RuleFunction;
+  export const equal: RuleFunction;
   /**
    * Checks if a value is greater than a given minimum.
    */
-  export declare const gt: RuleFunction;
+  export const gt: RuleFunction;
   /**
    * Checks if a value is greater than or equal to a given minimum.
    */
-  export declare const gte: RuleFunction;
+  export const gte: RuleFunction;
   /**
    * Checks if a value is an integer.
    */
-  export declare const integer: Rule;
+  export const integer: Rule;
   /**
    * Checks if a value is a valid IP address.
    */
-  export declare const ip: Rule;
+  export const ip: Rule;
   /**
    * Checks if a value is a zero-length string.
    */
-  export declare const isblank: Rule;
+  export const isblank: Rule;
   /**
    * Checks if a value is `null` or `undefined`.
    */
-  export declare const isnil: Rule;
+  export const isnil: Rule;
   /**
    * Checks if a value is `null`.
    */
-  export declare const isnull: Rule;
+  export const isnull: Rule;
   /**
    * Checks if a value is a valid ISO8601 date string.
    */
-  export declare const iso8601: Rule;
+  export const iso8601: Rule;
   /**
    * Checks if a value is valid JSON.
    */
-  export declare const json: Rule;
+  export const json: Rule;
   /**
    * Checks if a value's length is at least a given minimum, and no more than an
    * optional maximum.
    *
    * @see https://lodash.com/docs/#toLength
    */
-  export declare const length: RuleFunction;
+  export const length: RuleFunction;
   /**
    * Checks if a value is less than a given maximum.
    */
-  export declare const lt: RuleFunction;
+  export const lt: RuleFunction;
   /**
    * Checks if a value is less than or equal to a given maximum.
    */
-  export declare const lte: RuleFunction;
+  export const lte: RuleFunction;
   /**
    * Checks if a value matches a given regular expression string or RegExp.
    */
-  export declare const match: RuleFunction;
+  export const match: RuleFunction;
   /**
    * Alias for `lte`.
    */
-  export declare const max: RuleFunction;
+  export const max: RuleFunction;
   /**
    * Alias for `gte`.
    */
-  export declare const min: RuleFunction;
+  export const min: RuleFunction;
   /**
    * Checks if a value is negative.
    */
-  export declare const negative: Rule;
+  export const negative: Rule;
   /**
    *
    */
-  export declare const not: RuleFunction;
+  export const not: RuleFunction;
   /**
    * Checks if a value is a number (integer or float), excluding `NaN`.
    */
-  export declare const number: Rule;
+  export const number: Rule;
   /**
    * Checks if a value is a number or numeric string, excluding `NaN`.
    */
-  export declare const numeric: Rule;
+  export const numeric: Rule;
   /**
    * Checks if a value is an object, excluding arrays and functions.
    */
-  export declare const object: Rule;
+  export const object: Rule;
   /**
    * Checks if a value is positive.
    */
-  export declare const positive: Rule;
+  export const positive: Rule;
   /**
    * Checks if a value is present, ie. not `null`, `undefined`, or a blank string.
    */
-  export declare const required: Rule;
+  export const required: Rule;
   /**
    * Checks if a value equals another attribute's value.
    */
-  export declare const same: RuleFunction;
+  export const same: RuleFunction;
   /**
    * Checks if a value is a string.
    */
-  export declare const string: Rule;
+  export const string: Rule;
   /**
    * Checks if a value is a valid URL string.
    */
-  export declare const url: Rule;
+  export const url: Rule;
   /**
    * Checks if a value is a valid UUID.
    */
-  export declare const uuid: Rule;
+  export const uuid: Rule;
   declare global {
     interface Window {
       __vuemc_validation_messages: GlobalMessages;
@@ -2155,7 +2159,7 @@ declare module "@planetadeleste/vue-mc" {
     getModelList<T extends Collection>(this: T): Record<string, any>;
   }
 
-  export interface FileData {
+  interface FileData {
     disk_name: string;
     thumb: string;
     path: string;
@@ -2164,10 +2168,10 @@ declare module "@planetadeleste/vue-mc" {
     title: string;
     description: string;
   }
-
-  export interface File extends Model, FileData {
+  class File extends Model {
     resize(width: number, height: number): Promise<Response>;
   }
+  export { File }
 
   export type Accessor = (value?: any) => any;
 
