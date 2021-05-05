@@ -1905,16 +1905,7 @@ declare module "vue-mc/validation" {
    * Checks if a value is a valid UUID.
    */
   export const uuid: Rule;
-  declare global {
-    interface Window {
-      __vuemc_validation_messages: GlobalMessages;
-    }
-    namespace NodeJS {
-      interface Global {
-        __vuemc_validation_messages: GlobalMessages;
-      }
-    }
-  }
+
   export interface Rule {
     (value: any, attribute?: string, model?: Model): true | string;
     _and: Rule[];
@@ -2045,7 +2036,7 @@ declare module "@planetadeleste/vue-mc" {
      * @param {string[]} [arParams] Param keys to pick from model attributes
      * @returns {Promise<Response>}
      */
-    async createCustomRequest(
+    createCustomRequest(
       sMethod: string,
       sRoute?: string | Record<string, any> | string[],
       obData?: Record<string, any> | string[],
@@ -2083,8 +2074,8 @@ declare module "@planetadeleste/vue-mc" {
 
   export class Collection<A extends Model = Model> extends BaseCollection<A> {
     _baseClass: Base;
-    _links: ApiLinksResponse | Record<string, any> = {};
-    _meta: ApiMetaResponse | Record<string, any> = {};
+    _links: ApiLinksResponse | Record<string, any>;
+    _meta: ApiMetaResponse | Record<string, any>;
 
     _base(): Base;
     boot(): void;
