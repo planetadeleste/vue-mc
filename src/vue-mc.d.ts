@@ -25,6 +25,26 @@ declare module "vue-mc" {
     getValidationErrors(): Errors | Errors[];
   }
 
+  export class RequestError {
+    message: string;
+    error: any;
+    response: Response;
+    stack?: string;
+    constructor(error: any, response: Response);
+    toString(): string;
+    getError(): any;
+    getResponse(): Response;
+  }
+
+  export class ResponseError {
+    message: string;
+    response?: Response;
+    stack?: string;
+    constructor(message: string, response?: Response);
+    toString(): string;
+    getResponse(): Response | undefined;
+  }
+
   export type Errors = Record<string, string | string[]>;
 
   // HTTP
@@ -2171,7 +2191,7 @@ declare module "@planetadeleste/vue-mc" {
   class File extends Model {
     resize(width: number, height: number): Promise<Response>;
   }
-  export { File }
+  export { File };
 
   export type Accessor = (value?: any) => any;
 
