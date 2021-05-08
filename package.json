@@ -1,6 +1,6 @@
 {
   "name": "@planetadeleste/vue-mc",
-  "version": "1.0.82",
+  "version": "1.0.83",
   "description": "Extension of vue-mc (vuemc.io) package",
   "repository": {
     "type": "git",
@@ -37,7 +37,7 @@
   },
   "files": [
     "dist",
-    "src"
+    "src/vue-mc.d.ts"
   ],
   "homepage": "https://www.npmjs.com/package/@planetadeleste/vue-mc",
   "keywords": [
