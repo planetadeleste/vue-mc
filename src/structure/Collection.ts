@@ -90,7 +90,7 @@ export default class Collection<
     sMethod: string,
     sRoute?: string | Record<string, any>,
     obData?: Record<string, any>
-  ): Promise<Response> {
+  ): Promise<Response | null> {
     if (!isString(sRoute)) {
       if (isPlainObject(sRoute)) {
         obData = sRoute;
@@ -104,13 +104,7 @@ export default class Collection<
     const params = this.getRouteParameters();
     const url = this.getURL(route, params);
 
-    return await this.createRequest({ method, url, data: obData }).send();
-    // .then((response): void => {
-    //   this.onFetchSuccess(response);
-    // })
-    // .catch((error: ResponseError): void => {
-    //   this.onFetchFailure(error);
-    // });
+    return await this.fetch({ method, url, data: obData });
   }
 
   getModelsFromResponse(response: Response): any {

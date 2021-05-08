@@ -65,13 +65,7 @@ export default class Collection extends BaseCollection {
         const route = this.getRoute(sRoute);
         const params = this.getRouteParameters();
         const url = this.getURL(route, params);
-        return await this.createRequest({ method, url, data: obData }).send();
-        // .then((response): void => {
-        //   this.onFetchSuccess(response);
-        // })
-        // .catch((error: ResponseError): void => {
-        //   this.onFetchFailure(error);
-        // });
+        return await this.fetch({ method, url, data: obData });
     }
     getModelsFromResponse(response) {
         const models = response.getData();
