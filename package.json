@@ -11,29 +11,36 @@
   },
   "author": "Alvaro Canepa",
   "license": "MIT",
-  "main": "dist/index.js",
+  "main": "dist/main.js",
   "types": "src/vue-mc.d.ts",
   "scripts": {
     "lint": "eslint . --ext .ts",
-    "build": "tsc"
+    "build": "webpack"
   },
   "dependencies": {
-    "axios": "^0.21.1",
-    "object-to-formdata": "^4.1.0",
-    "vue-mc": "^0.6.0"
+    "object-to-formdata": "^4.1.0"
   },
   "devDependencies": {
     "@bit/planetadeleste.shopaholic.types.api": "^0.0.10",
     "@types/lodash": "^4.14.168",
+    "@types/node": "^15.0.2",
+    "@types/webpack": "^5.28.0",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.0.3",
+    "declaration-bundler-webpack-plugin": "^1.0.3",
     "eslint": "^7.25.0",
     "eslint-plugin-prettier": "^3.4.0",
     "lodash": "^4.17.21",
-    "ts-loader": "^9.1.1",
+    "ts-loader": "^8.0.2",
     "typescript": "^4.2.4",
+    "uglifyjs-webpack-plugin": "^2.1.3",
     "vue": "^2.6.12",
-    "vuex-module-decorators": "^1.0.1"
+    "vuex-module-decorators": "^1.0.1",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2",
+    "wepack-cli": "^0.0.1-security"
   },
   "files": [
     "dist",
@@ -45,5 +52,9 @@
     "mc",
     "vuemc",
     "shopaholic"
-  ]
+  ],
+  "peerDependencies": {
+    "axios": "^0.21.1",
+    "vue-mc": "^0.6.0"
+  }
 }
