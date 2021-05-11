@@ -2070,7 +2070,7 @@ declare module "@planetadeleste/vue-mc" {
      *
      * @returns {Promise}
      */
-    store(options: RequestOptions): Promise<Response<any> | null>;
+    store(options?: RequestOptions): Promise<Response<any> | null>;
   }
 
   export class Collection<A extends Model = Model> extends BaseCollection<A> {
@@ -2088,7 +2088,7 @@ declare module "@planetadeleste/vue-mc" {
      * @param {string} sMessage Alert Message
      * @param {string} sType Alert type (error, info, success)
      */
-    alert(sMessage: string, sType: string): string;
+    alert(sMessage: string, sType?: string): string;
 
     /**
      * @returns {Request} A new `Request` using the given configuration.
