@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 declare module "vue-mc" {
   import { AxiosRequestConfig, AxiosResponse, AxiosError, Method } from "axios";
@@ -2164,7 +2165,7 @@ declare module "@planetadeleste/vue-mc" {
     getModelList<T extends Collection>(this: T): Record<string, any>;
   }
 
-  interface FileData {
+  export interface FileData {
     disk_name: string;
     thumb: string;
     path: string;
@@ -2173,6 +2174,8 @@ declare module "@planetadeleste/vue-mc" {
     title: string;
     description: string;
   }
+
+  interface File extends Model, FileData {}
   class File extends Model {
     resize(width: number, height: number): Promise<Response>;
   }
