@@ -188,7 +188,7 @@ export default class Model extends BaseModel {
    */
   assignAccessors(): void {
     each(this._accessors, (fAccessor: Accessor, sKey) => {
-      if (!this.has(sKey)) {
+      if (!this.has(sKey) && !has(this, sKey)) {
         this.set(sKey, fAccessor());
       }
     });
