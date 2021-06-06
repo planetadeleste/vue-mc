@@ -188,9 +188,10 @@ export default class Model extends BaseModel {
    */
   assignAccessors(): void {
     each(this._accessors, (fAccessor: Accessor, sKey) => {
-      if (!this.has(sKey) && !has(this, sKey)) {
+      if (!this.hasIn(sKey)) {
         this.set(sKey, fAccessor());
       }
+
     });
   }
 
@@ -332,6 +333,10 @@ export default class Model extends BaseModel {
     assign(options, { data });
 
     return this.save(options);
+  }
+
+  hasIn(sKey: string): boolean {
+    return this.has(sKey) || sKey in this;
   }
 }
 
