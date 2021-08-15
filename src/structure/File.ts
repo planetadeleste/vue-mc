@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Model } from "../";
 import { Response } from "vue-mc";
 

@@ -2,11 +2,24 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 declare module "vue-mc" {
   import { AxiosRequestConfig, AxiosResponse, AxiosError, Method } from "axios";
-  import {
-    ApiLinksResponse,
-    ApiMetaResponse,
-  } from "@bit/planetadeleste.shopaholic.types.api";
   import { Rule } from "vue-mc/validation";
+
+  export interface ApiLinksResponse {
+    first: string;
+    last: string;
+    prev?: string;
+    next?: string;
+  }
+
+  export interface ApiMetaResponse {
+    current_page: number;
+    last_page: number;
+    path: string;
+    per_page: number;
+    total: number;
+    from?: string;
+    to?: string;
+  }
 
   export interface Result<T = Record<string, any>> {
     status: boolean;

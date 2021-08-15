@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Vue from "vue";
 import Base from "./Base";
 import {
@@ -191,7 +192,6 @@ export default class Model extends BaseModel {
       if (!this.hasIn(sKey)) {
         this.set(sKey, fAccessor());
       }
-
     });
   }
 

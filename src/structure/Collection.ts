@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
+  ApiLinksResponse,
+  ApiMetaResponse,
   Collection as BaseCollection,
   Model,
   Response,
@@ -20,10 +23,6 @@ import {
   map,
 } from "lodash";
 import Base from "./Base";
-import {
-  ApiLinksResponse,
-  ApiMetaResponse,
-} from "@bit/planetadeleste.shopaholic.types.api";
 
 export default class Collection<
   A extends Model = Model
