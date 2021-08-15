@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Model } from "../";
+import { Model } from "@planetadeleste/vue-mc";
 import { Response } from "vue-mc";
 
 /**

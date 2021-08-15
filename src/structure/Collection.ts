@@ -22,7 +22,7 @@ import {
   isNumber,
   map,
 } from "lodash";
-import Base from "./Base";
+import { Base } from "@planetadeleste/vue-mc";
 
 export default class Collection<
   A extends Model = Model

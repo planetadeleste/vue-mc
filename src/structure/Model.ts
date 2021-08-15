@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Vue from "vue";
-import Base from "./Base";
+import { Base } from "@planetadeleste/vue-mc";
 import {
   Model as BaseModel,
   RequestOptions,

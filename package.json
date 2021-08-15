@@ -1,6 +1,6 @@
 {
   "name": "@planetadeleste/vue-mc",
-  "version": "1.0.98",
+  "version": "1.0.99",
   "description": "Extension of vue-mc (vuemc.io) package",
   "repository": {
     "type": "git",
