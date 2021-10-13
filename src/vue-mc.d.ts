@@ -2140,7 +2140,7 @@ declare module "@planetadeleste/vue-mc" {
       sRoute?: string | Record<string, any>,
       obData?: Record<string, any>,
       arParams?: string[]
-    ): Promise<Response | null>;
+    ): Promise<Response>;
 
     getModelsFromResponse(response: Response): any;
 
