@@ -21,6 +21,9 @@ import {
   pickBy,
   isNumber,
   map,
+  isArray,
+  isUndefined,
+  pick,
 } from "lodash";
 import { Base } from "@planetadeleste/vue-mc";
 
@@ -78,32 +81,91 @@ export default class Collection<
   }
 
   /**
-   * Create a custom request, using option.method, route and data
+   * Create a custom request, using option.method, route and data.
+   * Response data will be fetched in collection
    *
    * @param {string} sMethod Method key name
-   * @param {string | Record<string, any>} [sRoute] Route key name
-   * @param {Record<string, any>} [obData]
+   * @param {string | Record<string, any> | string[]} [sRoute] Route key name, model data or key params
+   * @param {Record<string, any> | string[]} [obData] Model data or key params
+   * @param {string[]} [arParams] Param keys to pick from model attributes
    * @returns {Promise<Response>}
    */
   async createCustomRequest(
     sMethod: string,
     sRoute?: string | Record<string, any>,
-    obData?: Record<string, any>
+    obData?: Record<string, any>,
+    arParams?: string[]
   ): Promise<Response | null> {
+    const obRequestData = this.parseRequestConfig(
+      sMethod,
+      sRoute,
+      obData,
+      arParams
+    );
+    return await this.fetch(obRequestData);
+  }
+
+  /**
+   * Create a custom request, using option.method, route and data
+   * Response data will be returned
+   *
+   * @param {string} sMethod Method key name
+   * @param {string | Record<string, any> | string[]} [sRoute] Route key name, model data or key params
+   * @param {Record<string, any> | string[]} [obData] Model data or key params
+   * @param {string[]} [arParams] Param keys to pick from model attributes
+   * @returns {Promise<Response>}
+   */
+  async customRequest(
+    sMethod: string,
+    sRoute?: string | Record<string, any>,
+    obData?: Record<string, any>,
+    arParams?: string[]
+  ): Promise<Response | null> {
+    const obRequestData = this.parseRequestConfig(
+      sMethod,
+      sRoute,
+      obData,
+      arParams
+    );
+    return await this.createRequest(obRequestData).send();
+  }
+
+  private parseRequestConfig(
+    sMethod: string,
+    sRoute?: string | Record<string, any>,
+    obData?: Record<string, any>,
+    arParams?: string[]
+  ): AxiosRequestConfig {
     if (!isString(sRoute)) {
-      if (isPlainObject(sRoute)) {
+      if (isArray(sRoute)) {
+        arParams = sRoute;
+        obData = {};
+      } else if (isPlainObject(sRoute)) {
+        if (isArray(obData)) {
+          arParams = obData;
+        }
         obData = sRoute;
       }
 
       sRoute = sMethod;
     }
 
+    if (isUndefined(arParams)) {
+      arParams = [];
+    }
+
+    if (isUndefined(obData)) {
+      obData = {};
+    }
+
     const method = this.getOption(`methods.${sMethod}`);
     const route = this.getRoute(sRoute);
-    const params = this.getRouteParameters();
+    const params = isEmpty(arParams)
+      ? {}
+      : pick(this.getRouteParameters(), arParams);
     const url = this.getURL(route, params);
 
-    return await this.fetch({ method, url, data: obData });
+    return { method, url, data: obData };
   }
 
   getModelsFromResponse(response: Response): any {
@@ -224,7 +286,7 @@ export default class Collection<
   /**
    * @returns {Record<string, any>} A native representation of this collection models that will determine the contents of JSON.stringify(model).
    */
-  getModelList<T extends Collection>(this: T): Record<string, any> {
+  getModelList<T extends Collection>(this: T): A[] | Record<string, any> {
     return map(this.getModels(), (obModel: A) => obModel.toJSON());
   }
 }

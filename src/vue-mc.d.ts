@@ -2109,18 +2109,38 @@ declare module "@planetadeleste/vue-mc" {
     createRequest(config: AxiosRequestConfig): Request;
 
     /**
-     * Create a custom request, using option.method, route and data
+     * Create a custom request, using option.method, route and data.
+     * Response data will be fetched in collection
      *
      * @param {string} sMethod Method key name
-     * @param {string | Record<string, any>} [sRoute] Route key name
-     * @param {Record<string, any>} [obData]
+     * @param {string | Record<string, any> | string[]} [sRoute] Route key name, model data or key params
+     * @param {Record<string, any> | string[]} [obData] Model data or key params
+     * @param {string[]} [arParams] Param keys to pick from model attributes
      * @returns {Promise<Response>}
      */
-    createCustomRequest(
+    async createCustomRequest(
       sMethod: string,
       sRoute?: string | Record<string, any>,
-      obData?: Record<string, any>
+      obData?: Record<string, any>,
+      arParams?: string[]
     ): Promise<Response>;
+
+    /**
+     * Create a custom request, using option.method, route and data
+     * Response data will be returned
+     *
+     * @param {string} sMethod Method key name
+     * @param {string | Record<string, any> | string[]} [sRoute] Route key name, model data or key params
+     * @param {Record<string, any> | string[]} [obData] Model data or key params
+     * @param {string[]} [arParams] Param keys to pick from model attributes
+     * @returns {Promise<Response>}
+     */
+    async customRequest(
+      sMethod: string,
+      sRoute?: string | Record<string, any>,
+      obData?: Record<string, any>,
+      arParams?: string[]
+    ): Promise<Response | null>;
 
     getModelsFromResponse(response: Response): any;
 
