@@ -1972,7 +1972,7 @@ declare module "@planetadeleste/vue-mc" {
     aliases?: string[];
   }
 
-  export class Model extends BaseModel {
+  export class Model<A = Record<string, any>> extends BaseModel<A> {
     private _accessors: Record<string, Accessor>;
     private _relations: Record<string, Constructor<Model>>;
     private _baseClass: Base;

@@ -2,7 +2,7 @@
   /**
    * @license
    * author: Alvaro Canepa
-   * vue-mc.js v1.0.102
+   * vue-mc.js v1.0.103
    * Released under the MIT license.
    */
 
