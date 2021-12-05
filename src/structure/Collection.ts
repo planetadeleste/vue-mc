@@ -28,7 +28,8 @@ import {
 import { Base } from "@planetadeleste/vue-mc";
 
 export default class Collection<
-  A extends Model = Model
+  A extends Model = Model,
+  B = Record<string, any>
 > extends BaseCollection<A> {
   _baseClass!: Base;
   _links: ApiLinksResponse | Record<string, any> = {};
@@ -286,7 +287,7 @@ export default class Collection<
   /**
    * @returns {Record<string, any>} A native representation of this collection models that will determine the contents of JSON.stringify(model).
    */
-  getModelList<T extends Collection>(this: T): A[] | Record<string, any> {
+  getModelList<T extends Collection>(this: T): B[] | boolean[] {
     return map(this.getModels(), (obModel: A) => obModel.toJSON());
   }
 }

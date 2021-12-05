@@ -1042,14 +1042,14 @@ declare module "vue-mc" {
     | Model
     | Partial<Model>;
 
-  export class Model extends Base {
+  export class Model<T = Record<string, any>> extends Base {
     [key: string]: any;
     readonly loading: boolean;
     readonly saving: boolean;
     readonly deleting: boolean;
     readonly fatal: boolean;
 
-    private readonly _attributes: Record<string, any>;
+    private readonly _attributes: T;
     private readonly _collections: Collection[];
     private readonly _reference: Record<string, any>;
     private readonly _errors: Record<string, string[]>;
@@ -1066,7 +1066,7 @@ declare module "vue-mc" {
     /**
      * @returns {Object} This model's "active" state attributes.
      */
-    get attributes(): Record<string, any>;
+    get attributes(): T;
     /**
      * @returns {Object} The collection that this model is registered to.
      */
@@ -1293,7 +1293,7 @@ declare module "vue-mc" {
      * @returns {Object} A native representation of this model that will determine
      *                   the contents of JSON.stringify(model).
      */
-    toJSON(): Record<string, any>;
+    toJSON(): T;
     /**
      * Adds this model to all registered collections.
      */
@@ -2086,7 +2086,7 @@ declare module "@planetadeleste/vue-mc" {
     store(options?: RequestOptions): Promise<Response<any> | null>;
   }
 
-  export class Collection<A extends Model = Model> extends BaseCollection<A> {
+  export class Collection<A extends Model = Model, B = Record<string, any>> extends BaseCollection<A> {
     _baseClass: Base;
     _links: ApiLinksResponse | Record<string, any>;
     _meta: ApiMetaResponse | Record<string, any>;
@@ -2195,7 +2195,7 @@ declare module "@planetadeleste/vue-mc" {
     /**
      * @returns {Record<string, any>} A native representation of this collection models that will determine the contents of JSON.stringify(model).
      */
-    getModelList<T extends Collection>(this: T): Record<string, any>;
+    getModelList<T extends Collection>(this: T): B[];
   }
 
   export interface FileData {
