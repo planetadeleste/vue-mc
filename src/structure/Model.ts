@@ -42,7 +42,7 @@ export interface RelationConfig {
   aliases?: string[];
 }
 
-export default class Model extends BaseModel {
+export default class Model<A = Record<string, any>> extends BaseModel<A> {
   private _accessors!: Record<string, Accessor>;
   private _relations!: Record<string, Constructor<Model>>;
   private _baseClass!: Base;

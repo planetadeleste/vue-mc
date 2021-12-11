@@ -1083,7 +1083,7 @@ declare module "vue-mc" {
      * @param  {Object}     [options]     Options to set on the model.
      */
     constructor(
-      attributes?: Record<string, any>,
+      attributes?: T,
       collection?: Collection | null,
       options?: Record<string, any>
     );
