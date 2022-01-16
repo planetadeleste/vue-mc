@@ -6,7 +6,7 @@ import {
   Model,
   Response,
   RouteResolver,
-} from "vue-mc";
+} from "@dario-peercode/vue-mc";
 import { AxiosRequestConfig } from "axios";
 import Request from "../request/Request";
 import {
@@ -24,6 +24,8 @@ import {
   isArray,
   isUndefined,
   pick,
+  unset,
+  set,
 } from "lodash";
 import { Base } from "@planetadeleste/vue-mc";
 
@@ -164,6 +166,10 @@ export default class Collection<
     const params = isEmpty(arParams)
       ? {}
       : pick(this.getRouteParameters(), arParams);
+    const filters = this.get("filters");
+    if (!isNil(filters)) {
+      set(params, "filters", filters);
+    }
     const url = this.getURL(route, params);
 
     return { method, url, data: obData };
@@ -262,6 +268,7 @@ export default class Collection<
 
     const obFilters = this.get("filters", {});
     assign(obFilters, filters);
+    unset(obFilters, "page");
 
     this.set(
       "filters",

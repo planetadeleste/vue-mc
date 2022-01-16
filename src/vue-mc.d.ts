@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-declare module "vue-mc" {
+declare module "@dario-peercode/vue-mc" {
   import { AxiosRequestConfig, AxiosResponse, AxiosError, Method } from "axios";
   import { Rule } from "vue-mc/validation";
 

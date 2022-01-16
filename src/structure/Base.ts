@@ -1,4 +1,4 @@
-import { RouteResolver } from "vue-mc";
+import { RouteResolver } from "@dario-peercode/vue-mc";
 import { VuexModule } from "vuex-module-decorators";
 import { AxiosStatic } from "axios";
 

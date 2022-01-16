@@ -1,4 +1,4 @@
-import { Response, Request as RequestBase } from "vue-mc";
+import { Response, Request as RequestBase } from "@dario-peercode/vue-mc";
 import { AxiosError } from "axios";
 import { Base } from "../";
 

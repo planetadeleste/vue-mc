@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Model } from "@planetadeleste/vue-mc";
-import { Response } from "vue-mc";
+import { Response } from "@dario-peercode/vue-mc";
 
 /**
  * @description File model
