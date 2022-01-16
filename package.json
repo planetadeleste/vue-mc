@@ -1,6 +1,6 @@
 {
   "name": "@planetadeleste/vue-mc",
-  "version": "1.0.108",
+  "version": "1.0.109",
   "description": "Extension of vue-mc (vuemc.io) package",
   "repository": {
     "type": "git",
@@ -56,7 +56,6 @@
     "shopaholic"
   ],
   "peerDependencies": {
-    "@dario-peercode/vue-mc": "^0.6.3",
     "axios": "^0.24.0",
     "vue-mc": "^0.6.0"
   }
