@@ -274,6 +274,16 @@ export default class Collection<
   }
 
   /**
+   * Remove all collection filters
+   * @returns {T}
+   */
+  clearFilters<T extends Collection>(this: T): T {
+    this.set("filters", {});
+
+    return this;
+  }
+
+  /**
    * Limit number of records getting from query
    *
    * @param {Number} iCount Number of records to get
