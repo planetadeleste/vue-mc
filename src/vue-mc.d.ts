@@ -2209,6 +2209,12 @@ declare module "@planetadeleste/vue-mc" {
     filterBy<T extends Collection>(this: T, filters: Record<string, any>): T;
 
     /**
+     * Remove all collection filters
+     * @returns {T}
+     */
+    clearFilters<T extends Collection>(this: T): T
+
+    /**
      * Limit number of records getting from query
      *
      * @param {Number} iCount Number of records to get
