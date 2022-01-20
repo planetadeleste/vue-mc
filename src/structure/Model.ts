@@ -251,8 +251,8 @@ export default class Model<A = Record<string, any>> extends BaseModel<A> {
       sRoute = sMethod;
     }
 
-    if (isUndefined(arParams)) {
-      arParams = [];
+    if (isUndefined(arParams) || isEmpty(arParams)) {
+      arParams = ["filters"];
     }
 
     if (isUndefined(obData)) {

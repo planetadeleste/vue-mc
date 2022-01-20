@@ -151,8 +151,8 @@ export default class Collection<
       sRoute = sMethod;
     }
 
-    if (isUndefined(arParams)) {
-      arParams = [];
+    if (isUndefined(arParams) || isEmpty(arParams)) {
+      arParams = ["filters"];
     }
 
     if (isUndefined(obData)) {
