@@ -3,7 +3,6 @@
 import Vue from "vue";
 import { Base } from "@planetadeleste/vue-mc";
 import {
-  Listener,
   Model as BaseModel,
   RequestOptions,
   Response,
@@ -34,20 +33,8 @@ import {
   defaultTo,
   assign,
 } from "lodash";
-import mitt, { Emitter } from 'mitt';
 
 type Constructor<T> = new (...args: any[]) => T;
-type EventEmitted<T = Record<string, any>> = {
-  target: T;
-}
-type Events<T = Record<string, any>> = {
-  sync: EventEmitted<T>;
-  reset: EventEmitted<T>;
-  change: EventEmitted<T>;
-  create: EventEmitted<T>;
-  update: EventEmitted<T>;
-  fetch: EventEmitted<T>;
-};
 
 export interface RelationConfig {
   class: Constructor<Model>;
@@ -61,7 +48,6 @@ export default class Model<A = Record<string, any>> extends BaseModel<A> {
   private _relations!: Record<string, Constructor<Model>>;
   private _baseClass!: Base;
   private _silently!: boolean;
-  private _emitter!: Emitter<Events<A>>;
   private _base() {
     if (!this._baseClass) {
       this._baseClass = new Base();
@@ -76,7 +62,6 @@ export default class Model<A = Record<string, any>> extends BaseModel<A> {
     Vue.set(this, "_accessors", {});
     
     this._silently = false;
-    this._emitter = mitt<Events<A>>();
 
     this.compileAccessors();
     // @ts-ignore
@@ -96,19 +81,6 @@ export default class Model<A = Record<string, any>> extends BaseModel<A> {
     return this._relations;
   }
   
-  on(sEvent: keyof Events<A>, fnListener: Listener): void {
-    this._emitter.on(sEvent, fnListener);
-  }
-
-  off(sType: keyof Events<A>, fnHandler?: Listener): void {
-    this._emitter.off(sType, fnHandler);
-  }
-
-  emit(sEvent: keyof Events<A>, obContext?: EventEmitted<A>): void {
-    // @ts-ignore
-    this._emitter.emit(sEvent, obContext);
-  }
-
   silenty<T extends Model>(this: T, bEvent?: boolean): T {
     if (isUndefined(bEvent) || !isBoolean(bEvent)) {
       this._silently = true;

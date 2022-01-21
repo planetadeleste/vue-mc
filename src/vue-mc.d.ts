@@ -498,19 +498,6 @@ declare module "vue-mc" {
     headers?: Record<string, any>;
   }
 
-  export type EventEmitted<T = Record<string, any>> = {
-    target: T;
-  };
-
-  export type Events<T = Record<string, any>> = {
-    sync: EventEmitted<T>;
-    reset: EventEmitted<T>;
-    change: EventEmitted<T>;
-    create: EventEmitted<T>;
-    update: EventEmitted<T>;
-    fetch: EventEmitted<T>;
-  };
-
   export class Collection<A extends Model = Model> extends Base {
     models: A[];
     readonly loading: boolean;
@@ -1100,12 +1087,6 @@ declare module "vue-mc" {
       collection?: Collection | null,
       options?: Record<string, any>
     );
-
-    on(sEvent: keyof Events<A>, fnListener: Listener): void;
-
-    off(sType: keyof Events<A>, fnHandler?: Listener): void;
-
-    emit(sEvent: keyof Events<A>, obContext?: EventEmitted<A>): void;
 
     /**
      * Creates a copy of this model, with the same attributes and options. The
