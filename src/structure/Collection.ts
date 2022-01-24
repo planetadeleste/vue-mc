@@ -8,7 +8,7 @@ import {
   RouteResolver,
 } from "vue-mc";
 import { AxiosRequestConfig } from "axios";
-import Request from "../request/Request";
+import { Request } from "@planetadeleste/vue-mc";
 import {
   get,
   invoke,

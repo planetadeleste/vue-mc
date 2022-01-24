@@ -1947,23 +1947,46 @@ declare module "@planetadeleste/vue-mc" {
     RequestOptions,
     Response,
     RouteResolver,
-    Request,
+    Request as RequestBase,
   } from "vue-mc";
 
   type Constructor<T> = new (...args: any[]) => T;
 
+  export class Request extends RequestBase {
+    send(): Promise<Response>;
+  }
+
   export class Base {
-    static $resolve: RouteResolver;
-    static $flashModule: VuexModule;
-    static $loadingModule: VuexModule;
-    static $authModule: VuexModule;
-    static $http: AxiosStatic;
+    public static getInstance(): Base;
 
-    get flashModule(): VuexModule;
+    public getRouteResolver(): RouteResolver;
+    public setRouteResolver(obResolve: RouteResolver): void;
+    public getHttp(): AxiosStatic;
+    public setHttp(obValue: AxiosStatic): void;
+    public getFlashModule(): VuexModule;
+    public setFlashModule(obModule: VuexModule): void;
+    public getLoadingModule(): VuexModule;
+    public setLoadingModule(obModule: VuexModule): void;
+    public getAuthModule(): VuexModule;
+    public setAuthModule(obModule: VuexModule): void;
 
-    get loadingModule(): VuexModule;
+    static get $resolve(): RouteResolver;
+    static set $resolve(obValue: RouteResolver);
 
-    get authModule(): VuexModule;
+    static get $http(): AxiosStatic;
+    static set $http(obValue: AxiosStatic);
+
+    static get flashModule(): VuexModule;
+    static get $flashModule(): VuexModule;
+    static set $flashModule(obValue: VuexModule);
+
+    static get loadingModule(): VuexModule;
+    static get $loadingModule(): VuexModule;
+    static set $loadingModule(obValue: VuexModule);
+
+    static get authModule(): VuexModule;
+    static get $authModule(): VuexModule;
+    static set $authModule(obValue: VuexModule);
   }
 
   export interface RelationConfig {
@@ -2193,7 +2216,7 @@ declare module "@planetadeleste/vue-mc" {
      * Remove all collection filters
      * @returns {T}
      */
-    clearFilters<T extends Collection>(this: T): T
+    clearFilters<T extends Collection>(this: T): T;
 
     /**
      * Limit number of records getting from query

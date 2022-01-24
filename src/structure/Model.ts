@@ -9,7 +9,7 @@ import {
   RouteResolver,
 } from "vue-mc";
 import { AxiosRequestConfig } from "axios";
-import Request from "../request/Request";
+import { Request } from "@planetadeleste/vue-mc";
 import { serialize } from "object-to-formdata";
 import {
   isUndefined,
@@ -50,7 +50,7 @@ export default class Model<A = Record<string, any>> extends BaseModel<A> {
   private _silently!: boolean;
   private _base() {
     if (!this._baseClass) {
-      this._baseClass = new Base();
+      this._baseClass = Base.getInstance();
     }
 
     return this._baseClass;
@@ -60,7 +60,7 @@ export default class Model<A = Record<string, any>> extends BaseModel<A> {
     this._base();
     Vue.set(this, "_relations", {});
     Vue.set(this, "_accessors", {});
-    
+
     this._silently = false;
 
     this.compileAccessors();
@@ -80,7 +80,7 @@ export default class Model<A = Record<string, any>> extends BaseModel<A> {
   get relations(): Record<string, Constructor<Model>> {
     return this._relations;
   }
-  
+
   silenty<T extends Model>(this: T, bEvent?: boolean): T {
     if (isUndefined(bEvent) || !isBoolean(bEvent)) {
       this._silently = true;

@@ -1,6 +1,6 @@
 import { Response, Request as RequestBase } from "vue-mc";
 import { AxiosError } from "axios";
-import { Base } from "../";
+import { Base } from "@planetadeleste/vue-mc";
 
 export default class Request extends RequestBase {
   /**
