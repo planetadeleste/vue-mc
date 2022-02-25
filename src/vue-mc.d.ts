@@ -2082,6 +2082,12 @@ declare module "@planetadeleste/vue-mc" {
     ): Promise<Response>;
 
     /**
+     *
+     * @returns {string} The attribute that should be used to uniquely identify this model. Usualy "id".
+     */
+    getKey(): string;
+
+    /**
      * @returns {Object} The data to send to the server when saving this model.
      */
     getSaveData(): Record<string, any>;

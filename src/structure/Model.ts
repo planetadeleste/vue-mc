@@ -277,6 +277,24 @@ export default class Model<A = Record<string, any>> extends BaseModel<A> {
   }
 
   /**
+   * @returns {string} The full URL to use when making a fetch request.
+   */
+  getFetchURL(): string {
+    return this.getURL(
+      this.getFetchRoute(),
+      pick(this.getRouteParameters(), [this.getKey()])
+    );
+  }
+
+  /**
+   *
+   * @returns {string} The attribute that should be used to uniquely identify this model. Usualy "id".
+   */
+  getKey(): string {
+    return this.getOption("identifier");
+  }
+
+  /**
    * @returns {Object} The data to send to the server when saving this model.
    */
   getSaveData(): Record<string, any> {
