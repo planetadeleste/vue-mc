@@ -1,4 +1,4 @@
-import { Response, Request as RequestBase } from "vue-mc";
+import { Response, Request as RequestBase } from "@planetadeleste/vuemc";
 import { AxiosError } from "axios";
 import { Base } from "@planetadeleste/vue-mc";
 

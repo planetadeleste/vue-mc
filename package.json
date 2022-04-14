@@ -1,7 +1,7 @@
 {
   "name": "@planetadeleste/vue-mc",
-  "version": "1.0.117",
-  "description": "Extension of vue-mc (vuemc.io) package",
+  "version": "2.0.0-0",
+  "description": "Extension of vue-mc package for Vue 3",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/planetadeleste/vue-mc.git"
@@ -16,7 +16,8 @@
   "types": "src/vue-mc.d.ts",
   "scripts": {
     "lint": "eslint --fix 'src/**/*.ts'",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "install-peers": "install-peers -f"
   },
   "dependencies": {
     "object-to-formdata": "^4.1.0"
@@ -35,13 +36,14 @@
     "@typescript-eslint/parser": "^4.22.1",
     "eslint": "^7.25.0",
     "eslint-plugin-prettier": "^3.4.0",
+    "install-peers-cli": "^2.2.0",
     "lodash": "^4.17.21",
-    "rollup": "^2.47.0",
+    "rollup": "^2.70.1",
     "rollup-plugin-clear": "^2.0.7",
     "ts-loader": "^8.0.2",
-    "tslib": "^2.2.0",
+    "tslib": "^2.3.1",
     "typescript": "^4.2.4",
-    "vue": "^2.6.12",
+    "vue": "^3.2.33",
     "vuex-module-decorators": "^1.0.1"
   },
   "files": [
@@ -56,7 +58,7 @@
     "shopaholic"
   ],
   "peerDependencies": {
-    "axios": "^0.24.0",
-    "vue-mc": "^0.6.0"
+    "@planetadeleste/vuemc": "^1.0.0",
+    "axios": "^0.26.1"
   }
 }

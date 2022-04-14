@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Vue from "vue";
+import { Ref, ref } from "vue";
 import { Base } from "@planetadeleste/vue-mc";
 import {
   Model as BaseModel,
   RequestOptions,
   Response,
   RouteResolver,
-} from "vue-mc";
+} from "@planetadeleste/vuemc";
 import { AxiosRequestConfig } from "axios";
 import { Request } from "@planetadeleste/vue-mc";
 import { serialize } from "object-to-formdata";
@@ -32,6 +32,8 @@ import {
   forEach,
   defaultTo,
   assign,
+  get,
+  first,
 } from "lodash";
 
 type Constructor<T> = new (...args: any[]) => T;
@@ -43,9 +45,11 @@ export interface RelationConfig {
   aliases?: string[];
 }
 
-export default class Model<A = Record<string, any>> extends BaseModel<A> {
-  private _accessors!: Record<string, Accessor>;
-  private _relations!: Record<string, Constructor<Model>>;
+export default class Model<
+  A extends Record<string, any> = Record<string, any>
+> extends BaseModel<A> {
+  private _accessors!: Ref<Record<string, Accessor | Accessor[]>>;
+  private _relations!: Ref<Record<string, Constructor<Model>>>;
   private _baseClass!: Base;
   private _silently!: boolean;
   private _base() {
@@ -58,8 +62,8 @@ export default class Model<A = Record<string, any>> extends BaseModel<A> {
 
   boot(): void {
     this._base();
-    Vue.set(this, "_relations", {});
-    Vue.set(this, "_accessors", {});
+    this._relations = ref({});
+    this._accessors = ref({});
 
     this._silently = false;
 
@@ -78,7 +82,14 @@ export default class Model<A = Record<string, any>> extends BaseModel<A> {
   }
 
   get relations(): Record<string, Constructor<Model>> {
-    return this._relations;
+    return this._relations.value;
+  }
+
+  /**
+   *  @returns {Object} Attribute accessor keyed by attribute name.
+   */
+  get accessors(): Record<string, Accessor | Accessor[]> {
+    return this._accessors.value;
   }
 
   silenty<T extends Model>(this: T, bEvent?: boolean): T {
@@ -108,7 +119,7 @@ export default class Model<A = Record<string, any>> extends BaseModel<A> {
     const foreignKey = config.foreignKey || `${name}_id`;
     const localKey = config.localKey || "id";
 
-    Vue.set(this._relations, name, relation);
+    set(this._relations.value, name, relation);
     const value = relation ? relation[localKey] : null;
     this.set(foreignKey, value);
 
@@ -116,7 +127,7 @@ export default class Model<A = Record<string, any>> extends BaseModel<A> {
   }
 
   getRelation(name: string): Constructor<Model> {
-    return this._relations[name];
+    return get(this.relations, name);
   }
 
   registerRelation<T extends Model>(
@@ -169,18 +180,11 @@ export default class Model<A = Record<string, any>> extends BaseModel<A> {
   }
 
   /**
-   *  @returns {Object} Attribute accessor keyed by attribute name.
-   */
-  accessors(): Record<string, Accessor | Accessor[]> {
-    return {};
-  }
-
-  /**
    * Compiles all accessors into pipelines that can be executed quickly.
    */
   compileAccessors(): void {
-    this._accessors = mapValues(
-      this.accessors(),
+    this._accessors.value = mapValues(
+      this.accessors,
       (m: Accessor | Accessor[]): Accessor => flow(m as Accessor[])
     );
 
@@ -191,8 +195,11 @@ export default class Model<A = Record<string, any>> extends BaseModel<A> {
    * Sync all accessors with model attributes
    */
   assignAccessors(): void {
-    each(this._accessors, (fAccessor: Accessor, sKey) => {
-      if (!this.hasIn(sKey)) {
+    each(this.accessors, (fAccessor: Accessor | Accessor[], sKey) => {
+      if (!this.hasIn(sKey) && fAccessor) {
+        if (isArray(fAccessor)) {
+          fAccessor = fAccessor[0];
+        }
         this.set(sKey, fAccessor());
       }
     });
@@ -344,7 +351,7 @@ export default class Model<A = Record<string, any>> extends BaseModel<A> {
    *
    * @returns {Promise}
    */
-  store(options: RequestOptions = {}): Promise<Response<any> | null> {
+  store(options: RequestOptions = {}): Promise<Response | null> {
     let data = defaultTo(options.data, this.getSaveData());
 
     if (this.hasFileUpload(data)) {

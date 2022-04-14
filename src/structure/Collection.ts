@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  ApiLinksResponse,
-  ApiMetaResponse,
   Collection as BaseCollection,
   Model,
   Response,
   RouteResolver,
-} from "vue-mc";
+} from "@planetadeleste/vuemc";
 import { AxiosRequestConfig } from "axios";
-import { Request } from "@planetadeleste/vue-mc";
+import {
+  Request,
+  ApiLinksResponse,
+  ApiMetaResponse,
+} from "@planetadeleste/vue-mc";
 import {
   get,
   invoke,
