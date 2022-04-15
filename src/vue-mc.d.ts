@@ -11,6 +11,9 @@ declare module "@planetadeleste/vue-mc" {
   } from "@planetadeleste/vuemc";
 
   type Constructor<T> = new (...args: any[]) => T;
+  type Extract<Type> = {
+    [Property in keyof Type]: Type[Property];
+  };
 
   export class Request extends RequestBase {
     send(): Promise<Response>;
@@ -176,10 +179,7 @@ declare module "@planetadeleste/vue-mc" {
     store(options?: RequestOptions): Promise<Response<any> | null>;
   }
 
-  export class Collection<
-    A extends Model = Model,
-    B = Record<string, any>
-  > extends BaseCollection<A> {
+  export class Collection<A extends Model = Model> extends BaseCollection<A> {
     _baseClass: Base;
     _links: ApiLinksResponse | Record<string, any>;
     _meta: ApiMetaResponse | Record<string, any>;
@@ -294,7 +294,7 @@ declare module "@planetadeleste/vue-mc" {
     /**
      * @returns {Record<string, any>} A native representation of this collection models that will determine the contents of JSON.stringify(model).
      */
-    getModelList<T extends Collection>(this: T): B[];
+    getModelList<T extends Collection>(this: T): Extract<A>[];
   }
 
   export interface FileData {
