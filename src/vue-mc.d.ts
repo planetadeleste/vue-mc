@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-declare module "vue-mc" {
-  import { AxiosRequestConfig, AxiosResponse, AxiosError, Method } from "axios";
-  import { Rule } from "vue-mc/validation";
+declare module 'vue-mc' {
+  import { AxiosRequestConfig, AxiosResponse, AxiosError, Method } from 'axios';
+  import { Rule } from 'vue-mc/validation';
 
   export interface ApiLinksResponse {
     first: string;
@@ -463,7 +463,7 @@ declare module "vue-mc" {
     routeParameterPattern?: RegExp;
     useDeleteBody?: boolean;
   }
-  export type Routes = Record<"fetch" | "save" | "delete" | string, string>;
+  export type Routes = Record<'fetch' | 'save' | 'delete' | string, string>;
   export type Listener = (context: Record<string, any>) => void;
   export type RouteResolver = (
     route: string,
@@ -476,19 +476,19 @@ declare module "vue-mc" {
   export type RequestSuccessCallback = (response: Response | null) => void;
   export type OnRequestCallback = () => Promise<number | boolean>;
   export type HttpMethods =
-    | "GET"
-    | "POST"
-    | "PATCH"
-    | "PUT"
-    | "DELETE"
+    | 'GET'
+    | 'POST'
+    | 'PATCH'
+    | 'PUT'
+    | 'DELETE'
     | string;
   export type RequestType =
-    | "fetch"
-    | "save"
-    | "update"
-    | "create"
-    | "patch"
-    | "delete"
+    | 'fetch'
+    | 'save'
+    | 'update'
+    | 'create'
+    | 'patch'
+    | 'delete'
     | string;
   export interface RequestOptions {
     url?: string;
@@ -1043,7 +1043,7 @@ declare module "vue-mc" {
     | Partial<Model>;
 
   export class Model<T = Record<string, any>> extends Base {
-    [key: string]: any;
+    [key: keyof T]: any;
     readonly loading: boolean;
     readonly saving: boolean;
     readonly deleting: boolean;
@@ -1563,8 +1563,8 @@ declare module "vue-mc" {
   export const autobind: (instance: any) => void;
 }
 
-declare module "vue-mc/validation" {
-  import { Model } from "vue-mc";
+declare module 'vue-mc/validation' {
+  import { Model } from 'vue-mc';
 
   /**
    * Afrikaans
@@ -1934,13 +1934,13 @@ declare module "vue-mc/validation" {
   export type RuleFunction = (...params: any[]) => Rule;
 }
 
-declare module "@planetadeleste/vue-mc" {
-  import { VuexModule } from "vuex-module-decorators";
-  import { AxiosStatic, AxiosRequestConfig } from "axios";
+declare module '@planetadeleste/vue-mc' {
+  import { VuexModule } from 'vuex-module-decorators';
+  import { AxiosStatic, AxiosRequestConfig } from 'axios';
   import {
     ApiLinksResponse,
     ApiMetaResponse,
-  } from "@bit/planetadeleste.shopaholic.types.api";
+  } from '@bit/planetadeleste.shopaholic.types.api';
   import {
     Collection as BaseCollection,
     Model as BaseModel,
@@ -1948,7 +1948,7 @@ declare module "@planetadeleste/vue-mc" {
     Response,
     RouteResolver,
     Request as RequestBase,
-  } from "vue-mc";
+  } from 'vue-mc';
 
   type Constructor<T> = new (...args: any[]) => T;
 
