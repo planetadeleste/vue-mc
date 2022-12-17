@@ -16,7 +16,7 @@
   "types": "src/vue-mc.d.ts",
   "scripts": {
     "lint": "eslint --fix 'src/**/*.ts'",
-    "build": "rollup -c",
+    "build": "rollup -c --bundleConfigAsCjs",
     "install-peers": "install-peers -f"
   },
   "dependencies": {
