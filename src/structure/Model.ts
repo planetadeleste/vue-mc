@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Vue from "vue";
-import { Base } from "@planetadeleste/vue-mc";
+import Base from "./Base";
 import {
   Model as BaseModel,
   RequestOptions,
@@ -9,7 +9,7 @@ import {
   RouteResolver,
 } from "vue-mc";
 import { AxiosRequestConfig } from "axios";
-import { Request } from "@planetadeleste/vue-mc";
+import Request from "../request/Request";
 import { serialize } from "object-to-formdata";
 import {
   isUndefined,
@@ -31,7 +31,7 @@ import {
   isObject,
   forEach,
   defaultTo,
-  assign,
+  assign, get,
 } from "lodash";
 
 type Constructor<T> = new (...args: any[]) => T;
@@ -70,7 +70,7 @@ export default class Model<A = Record<string, any>> extends BaseModel<A> {
     this.on("fetch", (obEvent: Record<string, Model>) => {
       const obModel = obEvent.target;
       const attrs = obModel.attributes;
-      if (has(attrs, "data") && isNil(obModel.id)) {
+      if (has(attrs, "data") && isNil(get(obModel, "id"))) {
         this.clear();
         this.assign(attrs.data);
       }
@@ -127,7 +127,7 @@ export default class Model<A = Record<string, any>> extends BaseModel<A> {
     const names = unionBy([name], config.aliases);
 
     each(names, (item: string) => {
-      const exist = !isUndefined(this[item]); // I can't find how to set Relations before super() method.
+      const exist = !isUndefined(get(this, item)); // I can't find how to set Relations before super() method.
 
       Object.defineProperty(this, item, {
         get: () => this.getRelation(name),
