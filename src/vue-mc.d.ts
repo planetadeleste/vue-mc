@@ -104,6 +104,8 @@ declare module 'vue-mc' {
 
   type ResultData<T> = Result<T> & Record<string, any>;
 
+  type ModelAttr<T = Record<string, any>> = keyof T | string;
+
   export class Response<T = any> {
     response?: AxiosResponse;
     constructor(response?: AxiosResponse);
@@ -1176,7 +1178,7 @@ declare module 'vue-mc' {
      *
      * @returns {Object} The attributes that were assigned to the model.
      */
-    assign(attributes: Record<string, any>): void;
+    assign(attributes: T | Record<string, any>): void;
     /**
      * Resets all attributes back to their reference values (source of truth).
      * A good use case for this is when form fields are bound directly to the
@@ -1188,16 +1190,16 @@ declare module 'vue-mc' {
      *
      * @param {string|string[]} attribute
      */
-    reset(attribute: string | string[]): void;
+    reset(attribute: ModelAttr<T> | ModelAttr<T>[]): void;
     /**
      * @returns {*} The value of an attribute after applying its mutations.
      */
-    mutated(attribute: string, value: any): any;
+    mutated(attribute: ModelAttr<T>, value: any): any;
     /**
      * Mutates either specific attributes or all attributes if none provided.
      * @param {string|string[]|undefined} attribute
      */
-    mutate(attribute?: string | string[]): void;
+    mutate(attribute?: ModelAttr<T> | ModelAttr<T>[]): void;
     /**
      * Sync the current attributes to the reference attributes. This is usually
      * only called on save. We have to clone the values otherwise we
@@ -1207,12 +1209,12 @@ declare module 'vue-mc' {
      *
      * @param {string|string[]} attribute
      */
-    sync(attribute?: string | string[]): void;
+    sync(attribute?: ModelAttr<T> | ModelAttr<T>[]): void;
     /**
      * Registers an attribute on this model so that it can be accessed directly
      * on the model, passing through `get` and `set`.
      */
-    registerAttribute(attribute: string): void;
+    registerAttribute(attribute: ModelAttr<T>): void;
     /**
      * Sets the value of an attribute and registers the magic "getter" in a way
      * that is compatible with Vue's reactivity. This method should always be
@@ -1235,7 +1237,7 @@ declare module 'vue-mc' {
      *
      * @param {string|string[]} attribute
      */
-    unset(attribute: string | string[]): void;
+    unset(attribute: ModelAttr<T> | ModelAttr<T>[]): void;
     /**
      * Similar to `saved`, returns an attribute's value or a fallback value
      * if this model doesn't have the attribute.
@@ -1245,7 +1247,7 @@ declare module 'vue-mc' {
      *
      * @returns {*} The value of the attribute or `fallback` if not found.
      */
-    get(attribute: string, fallback?: any): any;
+    get(attribute: ModelAttr<T>, fallback?: any): any;
     /**
      * Similar to `get`, but accesses the saved attributes instead.
      *
@@ -1259,7 +1261,7 @@ declare module 'vue-mc' {
      *
      * @returns {*} The value of the attribute or `fallback` if not found.
      */
-    saved(attribute: string, fallback?: any): any;
+    saved(attribute: ModelAttr<T>, fallback?: any): any;
     /**
      * Determines if the model has an attribute.
      *
@@ -1267,18 +1269,18 @@ declare module 'vue-mc' {
      * @returns {boolean} `true` if an attribute exists, `false` otherwise.
      *                   Will return true if the object exists but is undefined.
      */
-    has(attribute: string): boolean;
+    has(attribute: ModelAttr<T>): boolean;
     /**
      * @return {Array}
      */
-    getValidateRules(attribute: string): Rule[];
+    getValidateRules(attribute: ModelAttr<T>): Rule[];
     /**
      * Validates a specific attribute of this model, and sets errors for it.
      *
      * @returns {boolean} `true` if valid, `false` otherwise.
      */
     validateAttribute(
-      attribute: string
+      attribute: ModelAttr<T>
     ): Promise<ValidationResultErrorFinalResult>;
     /**
      * Validates all attributes.
@@ -1288,7 +1290,7 @@ declare module 'vue-mc' {
      * @returns {Promise}
      */
     validate(
-      attributes?: string | string[]
+      attributes?: ModelAttr<T> | ModelAttr<T>[]
     ): Promise<ValidationResultErrorFinalResult>;
     /**
      * @returns {Object} A native representation of this model that will determine
@@ -1310,7 +1312,7 @@ declare module 'vue-mc' {
      * @returns {Array|boolean} An array of changed attribute names, or `false`
      *                         if no attributes have changed since the last sync.
      */
-    changed(): string[] | false;
+    changed(): ModelAttr<T>[] | false;
     /**
      * Called when a fetch request was successful.
      */
@@ -1386,7 +1388,7 @@ declare module 'vue-mc' {
      * @param {string|array} errors
      */
     setAttributeErrors(
-      attribute: string,
+      attribute: ModelAttr<T>,
       errors?: string | string[] | ValidationResultError[]
     ): void;
     /**
