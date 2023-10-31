@@ -144,12 +144,12 @@ export default class Collection<
 
         // Add pagination meta/links properties
         if (has(models, "meta")) {
-            this._meta = get(models, "meta");
+            this._meta = get(models, "meta", {});
             this.page(this._meta.current_page);
         }
 
         if (has(models, "links")) {
-            this._links = get(models, "links");
+            this._links = get(models, "links", {});
         }
 
         // We're making an assumption here that paginated models are returned

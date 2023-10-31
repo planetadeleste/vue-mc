@@ -531,7 +531,7 @@ declare module 'vue-mc' {
      *
      * @returns {Collection}
      */
-    clone<T extends Collection>(): T;
+    clone<T extends Collection = Collection<A>>(): T;
     /**
      * @return {A} The class/constructor for this collection's model type.
      */
@@ -609,7 +609,7 @@ declare module 'vue-mc' {
      * @returns {Object} A native representation of this collection that will
      *                   determine the contents of JSON.stringify(collection).
      */
-    toJSON(): A[];
+    toJSON(): A;
     /**
      * @returns {Promise}
      */
@@ -735,7 +735,7 @@ declare module 'vue-mc' {
      *
      * @returns {Collection}
      */
-    filter<T extends Collection>(predicate: Predicate): T;
+    filter<T extends Collection = Collection<A>>(predicate: Predicate): T;
 
     /**
      * Returns the models for which the given predicate returns `true` for,
@@ -757,8 +757,8 @@ declare module 'vue-mc' {
      * @param {function} callback Receives `model`.
      *
      * @return {A[]}
-     */
     map<T = A>(callback: string | ((model: A) => T)): T[];
+     */
     /**
      * Iterates through all models, calling a given callback for each one.
      *
@@ -944,7 +944,7 @@ declare module 'vue-mc' {
      *
      * @returns {Collection} This collection.
      */
-    page<T extends Collection>(page: number | boolean): T;
+    page<T extends Collection = Collection<A>>(page: number | boolean): T;
     /**
      * @returns {integer|null} The page that this collection is on.
      */
@@ -1096,7 +1096,7 @@ declare module 'vue-mc' {
      *
      * @returns {Model}
      */
-    clone<T extends Model>(): T;
+    clone<M extends Model = Model<T>>(): M;
     /**
      * Prepare certain methods to only be called once. These are methods that
      * are expected to return the same data every time.
@@ -1178,7 +1178,7 @@ declare module 'vue-mc' {
      *
      * @returns {Object} The attributes that were assigned to the model.
      */
-    assign(attributes: T | Record<string, any>): void;
+    assign(attributes: T): void;
     /**
      * Resets all attributes back to their reference values (source of truth).
      * A good use case for this is when form fields are bound directly to the
@@ -2009,16 +2009,16 @@ declare module '@planetadeleste/vue-mc' {
 
     get relations(): Record<string, Constructor<Model>>;
 
-    silenty<T extends Model>(this: T, bEvent?: boolean): T;
+    silenty<T extends Model = Model<A>>(this: T, bEvent?: boolean): T;
     definedRelations(): Record<string, RelationConfig>;
-    setRelation<T extends Model>(
+    setRelation<T extends Model = Model<A>>(
       this: T,
       name: string,
       config: RelationConfig,
       relation: Record<string, any>
     ): T;
     getRelation(name: string): Constructor<Model>;
-    registerRelation<T extends Model>(
+    registerRelation<T extends Model = Model<A>>(
       this: T,
       name: string,
       config: RelationConfig
@@ -2086,7 +2086,7 @@ declare module '@planetadeleste/vue-mc' {
     /**
      * @returns {Object} The data to send to the server when saving this model.
      */
-    getSaveData(): Record<string, any>;
+    getSaveData(): Partial<A>;
 
     /**
      * Iterates over elements of data to find instanceof File
@@ -2177,25 +2177,25 @@ declare module '@planetadeleste/vue-mc' {
      * Get the current collection page, gived from server response
      * @returns {number}
      */
-    getCurrentPage<T extends Collection>(this: T): number;
+    getCurrentPage<T extends Collection = Collection<A, B>>(this: T): number;
 
     /**
      * Get last collection page, gived from server response
      * @returns {number}
      */
-    getLastPage<T extends Collection>(this: T): number;
+    getLastPage<T extends Collection = Collection<A, B>>(this: T): number;
 
     /**
      * Get total number of collection items from server
      * @returns {number}
      */
-    getTotalItems<T extends Collection>(this: T): number;
+    getTotalItems<T extends Collection = Collection<A, B>>(this: T): number;
 
     /**
      * Get pagination data
      * @returns {ApiMetaResponse}
      */
-    getPaginationData<T extends Collection>(
+    getPaginationData<T extends Collection = Collection<A, B>>(
       this: T
     ): ApiMetaResponse | Record<string, any>;
 
@@ -2203,7 +2203,7 @@ declare module '@planetadeleste/vue-mc' {
      * Get pagination links for first, last, next and prev page
      * @returns {ApiLinksResponse}
      */
-    getLinks<T extends Collection>(
+    getLinks<T extends Collection = Collection<A, B>>(
       this: T
     ): ApiLinksResponse | Record<string, any>;
 
@@ -2212,25 +2212,25 @@ declare module '@planetadeleste/vue-mc' {
      * @param {Object} filters JSON object to add filters param
      * @returns {Collection}
      */
-    filterBy<T extends Collection>(this: T, filters: Record<string, any>): T;
+    filterBy<T extends Collection = Collection<A, B>>(this: T, filters: Record<string, any>): T;
 
     /**
      * Remove all collection filters
      * @returns {T}
      */
-    clearFilters<T extends Collection>(this: T): T;
+    clearFilters<T extends Collection = Collection<A, B>>(this: T): T;
 
     /**
      * Limit number of records getting from query
      *
      * @param {Number} iCount Number of records to get
      */
-    limit<T extends Collection>(this: T, iCount: number): T;
+    limit<T extends Collection = Collection<A, B>>(this: T, iCount: number): T;
 
     /**
      * @returns {Record<string, any>} A native representation of this collection models that will determine the contents of JSON.stringify(model).
      */
-    getModelList<T extends Collection>(this: T): B[];
+    getModelList<T extends Collection = Collection<A, B>>(this: T): B[];
   }
 
   export interface FileData {
