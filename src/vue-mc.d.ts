@@ -748,6 +748,7 @@ declare module 'vue-mc' {
      * @returns {A[]}
      */
     where(predicate: Predicate): A[];
+
     /**
      * Returns an array that contains the returned result after applying a
      * function to each model in this collection.
@@ -757,8 +758,9 @@ declare module 'vue-mc' {
      * @param {function} callback Receives `model`.
      *
      * @return {A[]}
-    map<T = A>(callback: string | ((model: A) => T)): T[];
      */
+    map<T = A>(callback: string | ((model: A) => T)): T[];
+
     /**
      * Iterates through all models, calling a given callback for each one.
      *
